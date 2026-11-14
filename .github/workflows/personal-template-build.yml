@@ -7,6 +7,7 @@ on:
       - deepseek-native-chat
     paths:
       - .github/workflows/personal-template-build.yml
+      - .github/workflows/node-server-tests.yml
 
 permissions:
   contents: read

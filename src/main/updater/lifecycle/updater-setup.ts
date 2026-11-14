@@ -167,7 +167,7 @@ export class UpdaterSetup extends UpdaterDownloadInstall {
       Object.assign(autoUpdater, { installDirectory })
     }
 
-    // Security: never re-add a verifyUpdateCodeSignature override �� a no-op disables electron-updater's built-in Authenticode check and accepts any installer.
+    // Security: never re-add a verifyUpdateCodeSignature override — a no-op disables electron-updater's built-in Authenticode check and accepts any installer.
     if (this.activeUpdateSource === 'release') {
       autoUpdater.setFeedURL({
         provider: 'generic',

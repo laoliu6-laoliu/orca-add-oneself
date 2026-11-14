@@ -66,10 +66,10 @@ jobs:
     runs-on: ${{ inputs.fast_runners && 'blacksmith-2vcpu-ubuntu-2404' || 'ubuntu-latest' }}
     timeout-minutes: 5
     outputs:
-      should_run: ${{ steps.scope.outputs.should_run || steps.graph.outputs.should_run }}
-      qualification: ${{ steps.scope.outputs.qualification || steps.graph.outputs.qualification }}
-      native_compatibility: ${{ steps.scope.outputs.native_compatibility || steps.graph.outputs.native_compatibility }}
-      runners: ${{ steps.scope.outputs.runners || steps.graph.outputs.runners }}
+      should_run: ${{ inputs.build_template && 'true' || steps.scope.outputs.should_run || steps.graph.outputs.should_run }}
+      qualification: ${{ inputs.build_template && 'true' || steps.scope.outputs.qualification || steps.graph.outputs.qualification }}
+      native_compatibility: ${{ inputs.build_template && 'true' || steps.scope.outputs.native_compatibility || steps.graph.outputs.native_compatibility }}
+      runners: ${{ inputs.build_template && '["ubuntu-22.04","ubuntu-24.04-arm","macos-15","macos-15-intel","windows-2022","windows-11-arm"]' || steps.scope.outputs.runners || steps.graph.outputs.runners }}
     steps:
       - uses: actions/checkout@v6
         with:
