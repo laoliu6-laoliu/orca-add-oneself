@@ -37,6 +37,7 @@ export class AcpStructuredOptions {
     private readonly dialect: Pick<
       AcpDialect,
       | 'modelEfforts'
+      | 'configModelLabel'
       | 'withheldCommands'
       | 'effortChangesModel'
       | 'clampsUnlistedEffort'
@@ -245,7 +246,7 @@ export class AcpStructuredOptions {
       : []
     const currentModel = (modelOption?.currentValue ?? this.models?.currentModelId) || undefined
     const listed: { id: string; label: string; description?: string }[] = modelOption
-      ? acpSelectChoices(modelOption).map((choice) => ({
+      ? acpSelectChoices(modelOption, this.dialect.configModelLabel).map((choice) => ({
           id: choice.value,
           label: choice.name,
           ...(choice.description ? { description: choice.description } : {})
