@@ -1,0 +1,20 @@
+name: Personal remote deployment template
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - deepseek-native-chat
+    paths:
+      - .github/workflows/personal-template-build.yml
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  template:
+    uses: ./.github/workflows/qualified-orcad-template.yml
+    with:
+      ref: ${{ github.sha }}
+      fast_runners: false

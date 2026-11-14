@@ -15,13 +15,13 @@ const checks = [
   },
   {
     name: 'Linux snapshot renderer tests',
-    command: 'python3',
+    command: process.platform === 'win32' ? 'python' : 'python3',
     args: ['native/computer-use-linux/runtime_render_test.py'],
     enabled: true
   },
   {
     name: 'Linux keyboard synthesis tests',
-    command: 'python3',
+    command: process.platform === 'win32' ? 'python' : 'python3',
     args: ['native/computer-use-linux/runtime_keyboard_test.py'],
     enabled: true
   },

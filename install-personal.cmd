@@ -2,6 +2,23 @@
 setlocal
 cd /d "%~dp0"
 
+for /f "delims=" %%V in ('node -p "process.versions.node.split('.')[0]" 2^>nul') do set "NODE_MAJOR=%%V"
+if not "%NODE_MAJOR%"=="24" (
+  echo Node.js 24 is required. Add its bin directory to PATH and retry.
+  exit /b 1
+)
+where cargo >nul 2>nul
+if errorlevel 1 (
+  echo Rust and Cargo are required to build the Windows launchers.
+  exit /b 1
+)
+for /f "delims=" %%V in (config\.bun-version) do set "BUN_VERSION=%%V"
+if not defined BUN_VERSION exit /b 1
+set "BUN_BOOTSTRAP=%CD%\.build\personal-bun"
+call npm install --prefix "%BUN_BOOTSTRAP%" --no-save --ignore-scripts "@oven/bun-windows-x64@%BUN_VERSION%"
+if errorlevel 1 exit /b %errorlevel%
+set "NODE_PATH=%BUN_BOOTSTRAP%\node_modules;%NODE_PATH%"
+
 call pnpm install --frozen-lockfile
 if errorlevel 1 exit /b %errorlevel%
 pushd mobile
