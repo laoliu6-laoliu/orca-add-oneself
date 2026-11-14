@@ -19,10 +19,10 @@ export const RELEASE_CHANNEL_LABELS: Readonly<Record<ReleaseChannel, string>> = 
 }
 
 /** Keep dev tags out of the 10-entry main releases feed, where hourlies would evict stable/RC updates. */
-export const HOURLY_RELEASE_REPO = 'stablyai/orca-hourly'
-export const DAILY_RELEASE_REPO = 'stablyai/orca-daily'
-export const ADHOC_RELEASE_REPO = 'stablyai/orca-adhoc'
-export const MAIN_RELEASE_REPO = 'stablyai/orca'
+export const HOURLY_RELEASE_REPO = 'laoliu6-laoliu/orca-add-oneself'
+export const DAILY_RELEASE_REPO = 'laoliu6-laoliu/orca-add-oneself'
+export const ADHOC_RELEASE_REPO = 'laoliu6-laoliu/orca-add-oneself'
+export const MAIN_RELEASE_REPO = 'laoliu6-laoliu/orca-add-oneself'
 
 /** The dev channels, each published to its own repo rather than the main one. */
 const DEDICATED_REPO_CHANNELS = ['hourly', 'daily', 'adhoc'] as const
@@ -108,7 +108,7 @@ function parseStampedVersion(version: string, pattern: RegExp): Date | null {
   }
   const [year, month, day, hour, minute, second = 0] = match.slice(1).map(Number)
   const parsed = new Date(Date.UTC(year, month - 1, day, hour, minute, second))
-  // Round-trip components because Date.UTC normalizes impossible dates (February 30→March 2).
+  // Round-trip components because Date.UTC normalizes impossible dates (February 30��March 2).
   if (
     parsed.getUTCFullYear() !== year ||
     parsed.getUTCMonth() !== month - 1 ||
@@ -183,7 +183,7 @@ export function getReleaseNotesUrlForVersion(version: string | null): string {
     : `https://github.com/${repo}/releases`
 }
 
-/** Require each platform’s updater manifest: missing/in-progress platform legs must not offer picker entries whose downloads 404. */
+/** Require each platform��s updater manifest: missing/in-progress platform legs must not offer picker entries whose downloads 404. */
 const PLATFORM_UPDATE_MANIFESTS: Partial<Record<NodeJS.Platform, readonly string[]>> = {
   darwin: ['latest-mac.yml'],
   win32: ['latest.yml'],
@@ -208,7 +208,7 @@ export function hasInstallableArtifactForPlatform(
   return manifests.some((manifest) => assetNames.includes(manifest))
 }
 
-/** Match electron-builder’s runnable installer names for manual bootstrap when in-app switching cannot work. */
+/** Match electron-builder��s runnable installer names for manual bootstrap when in-app switching cannot work. */
 const PLATFORM_INSTALLER_PATTERNS: Partial<Record<NodeJS.Platform, RegExp>> = {
   darwin: /\.dmg$/i,
   win32: /windows-setup\.exe$/i,
@@ -241,7 +241,7 @@ export type ReleaseBuild = {
 /** Newest first, so the picker's first row is always the channel's current tip. */
 export function sortReleaseBuildsNewestFirst(builds: ReleaseBuild[]): ReleaseBuild[] {
   return [...builds].sort((left, right) => {
-    // Branches can predate current main’s base version; use dev build time rather than semver for picker recency.
+    // Branches can predate current main��s base version; use dev build time rather than semver for picker recency.
     const leftStamp = parseDevBuildStamp(left.version)?.getTime() ?? null
     const rightStamp = parseDevBuildStamp(right.version)?.getTime() ?? null
     if (leftStamp !== null && rightStamp !== null && leftStamp !== rightStamp) {

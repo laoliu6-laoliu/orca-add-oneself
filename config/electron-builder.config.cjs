@@ -328,7 +328,7 @@ module.exports = {
     '!resources/win32{,/**/*}'
   ],
   // Node-mode CLI/daemon/foreign SQLite reader/serve entries cannot read asar; unpack their shared/main dependencies too.
-  // Keep out/package.json’s CommonJS boundary and remote CLI WebSocket/E2EE deps. Electron-only workers may stay packed.
+  // Keep out/package.json��s CommonJS boundary and remote CLI WebSocket/E2EE deps. Electron-only workers may stay packed.
   // Renderer/mobile-web assets need real paths: swept temporary asar extracts are not recreated (#27976).
   asarUnpack: [
     'out/package.json',
@@ -560,8 +560,7 @@ module.exports = {
     // Unsigned dev channels omit it or updater signature checks reject dev updates and return to stable.
     // Sign hook signs nothing: it relays transient NSIS uninstaller files to CI SignPath; unset relay env leaves local/dev builds inert.
     signtoolOptions: {
-      sign: signWindowsUninstallerViaSignPath,
-      ...(isWinDevChannel ? {} : { publisherName: 'SignPath Foundation' })
+      sign: signWindowsUninstallerViaSignPath
     },
     ...(isWinDevChannel ? { verifyUpdateCodeSignature: false } : {}),
     extraResources: [
@@ -602,11 +601,11 @@ module.exports = {
     uninstallDisplayName: '${productName}',
     createDesktopShortcut: 'always',
     // One NSIS include hosts update-guarded daemon cleanup and additive markdown Open With registration.
-    // Avoid fileAssociations: it would steal default .md ownership; see the include’s header.
+    // Avoid fileAssociations: it would steal default .md ownership; see the include��s header.
     include: resolve(__dirname, 'nsis', 'orca-installer-hooks.nsh')
   },
   mac: {
-    // Alternate rank preserves Finder’s default; one entry per extension because app-builder globs the value as a string.
+    // Alternate rank preserves Finder��s default; one entry per extension because app-builder globs the value as a string.
     fileAssociations: [
       ...MARKDOWN_FILE_EXTENSIONS.map((ext) => ({
         ext,
@@ -697,7 +696,7 @@ module.exports = {
     // shared-mime-info already maps md/markdown: advertise handler only, leaving mimeapps.list defaults intact.
     // Omit mdx because Ubuntu 24.04 maps it to application/x-genesis-32x-rom; claiming it would need a glob override.
     mimeTypes: ['text/markdown', 'text/csv', 'text/tab-separated-values'],
-    // Avoid GNOME Orca’s orca package and /usr/bin/orca names.
+    // Avoid GNOME Orca��s orca package and /usr/bin/orca names.
     executableName: 'orca-ide',
     // Use icns to generate hicolor sizes; some Linux docks ignore a lone 1024px PNG.
     icon: 'resources/build/icon.icns',
@@ -782,8 +781,8 @@ module.exports = {
   npmRebuild: true,
   publish: {
     provider: 'github',
-    owner: 'stablyai',
-    repo: devChannelRepo ?? 'orca',
+    owner: 'laoliu6-laoliu',
+    repo: 'orca-add-oneself',
     // Keep main-repo releases draft until release-cut verifies all assets; early --publish always would expose missing Windows installers.
     releaseType: devChannelRepo ? 'prerelease' : 'draft'
   }

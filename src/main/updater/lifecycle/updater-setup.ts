@@ -167,11 +167,11 @@ export class UpdaterSetup extends UpdaterDownloadInstall {
       Object.assign(autoUpdater, { installDirectory })
     }
 
-    // Security: never re-add a verifyUpdateCodeSignature override — a no-op disables electron-updater's built-in Authenticode check and accepts any installer.
+    // Security: never re-add a verifyUpdateCodeSignature override �� a no-op disables electron-updater's built-in Authenticode check and accepts any installer.
     if (this.activeUpdateSource === 'release') {
       autoUpdater.setFeedURL({
         provider: 'generic',
-        url: 'https://github.com/stablyai/orca/releases/latest/download'
+        url: 'https://github.com/laoliu6-laoliu/orca-add-oneself/releases/latest/download'
       })
     }
     if (this.autoUpdaterInitialized) {
