@@ -33,6 +33,12 @@ call pnpm build:release
 if errorlevel 1 exit /b %errorlevel%
 call pnpm ensure:electron-runtime
 if errorlevel 1 exit /b %errorlevel%
+if not exist "out\orcad-template\orcad-template.json" (
+  echo Remote deployment template is missing from out\orcad-template.
+  echo Download the orcad-template artifact from the matching personal-template-build workflow run.
+  exit /b 1
+)
+set "ORCA_REQUIRE_ORCAD_TEMPLATE=1"
 call pnpm exec electron-builder --config config/electron-builder.config.cjs --win --publish never
 if errorlevel 1 exit /b %errorlevel%
 
