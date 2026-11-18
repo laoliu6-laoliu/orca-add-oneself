@@ -1,0 +1,8 @@
+version: "1"
+rules:
+  - base: main
+    upstream: stablyai:main
+    mergeMethod: none
+    mergeUnstable: false
+    label: ":arrow_heading_down: pull"
+    conflictLabel: "merge-conflict"
